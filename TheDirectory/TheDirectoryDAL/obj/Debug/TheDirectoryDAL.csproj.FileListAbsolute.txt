@@ -1,0 +1,10 @@
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\bin\Debug\TheDirectoryDAL.dll.config
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\bin\Debug\TheDirectoryDAL.dll
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\bin\Debug\TheDirectoryDAL.pdb
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\bin\Debug\EntityFramework.dll
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\bin\Debug\EntityFramework.xml
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\obj\Debug\TheDirectoryDAL.csprojResolveAssemblyReference.cache
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\obj\Debug\TheDirectoryDAL.dll
+C:\Pent.Official\source_codes\TheDirectory\TheDirectoryDAL\obj\Debug\TheDirectoryDAL.pdb

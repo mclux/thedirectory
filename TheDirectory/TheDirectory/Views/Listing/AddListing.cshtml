@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Views/Shared/_PortalLayout.cshtml";
+}
+@{
+    ViewBag.Title = "Add Listing";
+}
+
+<!--== BODY INNER CONTAINER ==-->
+<div class="sb2-2">
+    <!--== breadcrumbs ==-->
+    <div class="sb2-2-2">
+        <ul>
+            <li><a href="main.html"><i class="fa fa-home" aria-hidden="true"></i> Home</a> </li>
+            <li class="active-bre"><a href="#"> Add Listing</a> </li>
+        </ul>
+    </div>
+    <div class="tz-2 tz-2-admin">
+        <div class="tz-2-com tz-2-main">
+            <h4>Add New Listing</h4>
+            <!-- Dropdown Structure -->
+            <div class="split-row">
+                <div class="col-md-12">
+                    <div class="box-inn-sp ad-inn-page">
+                        <div class="tab-inn ad-tab-inn">
+                            <div class="hom-cre-acc-left hom-cre-acc-right">
+                                <div class="">
+                                    <form class="" onsubmit="return false;">
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="directoryName" type="text" class="validate">
+                                                <label for="list_name">Directory Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="phone" type="text" class="validate">
+                                                <label for="list_phone">Phone</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="email" type="email" class="validate">
+                                                <label for="email">Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="address" type="text" class="validate">
+                                                <label for="list_addr">Address</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="website" type="text" class="validate">
+                                                <label for="list_phone">Website</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="description" class="materialize-textarea"></textarea>
+                                                <label for="textarea1">Listing Description</label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="input-field col s12 v2-mar-top-40"> <button id="saveDirectory" class="waves-effect waves-light btn-large full-btn">Save</button> </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section pageScripts{
+    <script>
+        $("#saveDirectory").click(function () {
+            $("#saveDirectory").html("please wait...");
+            var param = {
+                BusinessName: $("#directoryName").val(),
+                Description: $("#description").val(),
+                Website: $("#website").val(),
+                Email: $("#email").val(),
+                Phone: $("#phone").val(),
+                Address: $("#address").val()
+            };
+            $.ajax({
+                url: API_BASE_URL + "/Listing/AddDirectory",
+                type: "Post",
+                data: JSON.stringify(param),
+                contentType: "application/json",
+                success: function (data) {
+                    if (data == true)
+                    {
+                        $("#directoryName").val("");
+                        $("#description").val("");
+                        $("#website").val("");
+                        $("#email").val("");
+                        $("#phone").val("");
+                        $("#address").val("");
+                        $("#saveDirectory").html("Save");
+                    }
+                },
+                error: function (err) {
+
+                }
+            });
+        });
+    </script>
+}
+

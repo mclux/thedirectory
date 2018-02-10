@@ -1,0 +1,1 @@
+﻿var API_BASE_URL = "http://localhost:50395/api/";

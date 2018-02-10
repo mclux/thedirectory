@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Shared/_PortalLayout.cshtml";
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="sb2-2">
+    <!--== breadcrumbs ==-->
+    <div class="sb2-2-2">
+        <ul>
+            <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Categories</a> </li>
+            <li class="active-bre"><a href="#"> Listings List</a> </li>
+        </ul>
+    </div>
+    <div class="tz-2 tz-2-admin">
+        <div class="tz-2-com tz-2-main">
+            <h4 id="lblLoader">Listings</h4>
+            <!-- Dropdown Structure -->
+            <div class="split-row">
+                <div class="col-md-12">
+                    <div class="box-inn-sp ad-inn-page">
+                        <div class="tab-inn ad-tab-inn">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>S/N</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Website</th>
+                                            <th>View</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listingTable">
+                                                                               
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section pageScripts{
+    <script>
+        loadListings();
+
+        function loadListings()
+        {
+            $("#lblLoader").html("loading listings...");
+            $.ajax({
+                url: API_BASE_URL + "/Listing/GetDirectories",
+                type: "Get",
+                contentType: "application/json",
+                success: function (data) {
+                    var output = "";
+                    for (i = 0; i < data.length; i++) {
+                        output += '<tr>\
+                                <td>'+ (i + 1) + '</td>\
+                                <td>' + data[i].BusinessName + '</td>\
+                                <td>' + data[i].Email + '</td>\
+                                <td>' + data[i].Phone + '</td>\
+                                <td>' + data[i].Website + '</td>\
+                                <td> <a href="#" class="btn btn-primary"><i class="fa fa-eye"></i></a> </td>\
+                                <td> <button class="btn btn-danger" onclick="deleteCategory(' + data[i].ListingId + ')"><i class="fa fa-times"></i></button> </td>\
+                            </tr>';
+                    }
+                    $("#listingTable").html(output);
+                    $("#lblLoader").html("Categories");
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+
+    </script>
+}

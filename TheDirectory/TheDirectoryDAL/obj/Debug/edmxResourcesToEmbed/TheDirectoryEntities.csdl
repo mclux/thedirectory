@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TheDirectoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Listing">
+    <Key>
+      <PropertyRef Name="ListingId" />
+    </Key>
+    <Property Name="ListingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BusinessName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ListingAndCategories" Relationship="Self.FK_ListingAndCategory_Listing" FromRole="Listing" ToRole="ListingAndCategory" />
+  </EntityType>
+  <EntityType Name="ListingAndCategory">
+    <Key>
+      <PropertyRef Name="ListingAndCategoryId" />
+    </Key>
+    <Property Name="ListingAndCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ListingId" Type="Int32" Nullable="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Listing" Relationship="Self.FK_ListingAndCategory_Listing" FromRole="ListingAndCategory" ToRole="Listing" />
+    <NavigationProperty Name="ListingCategory" Relationship="Self.FK_ListingAndCategory_ListingCategory" FromRole="ListingAndCategory" ToRole="ListingCategory" />
+  </EntityType>
+  <EntityType Name="ListingCategory">
+    <Key>
+      <PropertyRef Name="ListingCategoryId" />
+    </Key>
+    <Property Name="ListingCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ListingAndCategories" Relationship="Self.FK_ListingAndCategory_ListingCategory" FromRole="ListingCategory" ToRole="ListingAndCategory" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ListingAndCategory_Listing">
+    <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+    <End Role="ListingAndCategory" Type="Self.ListingAndCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="ListingId" />
+      </Principal>
+      <Dependent Role="ListingAndCategory">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListingAndCategory_ListingCategory">
+    <End Role="ListingCategory" Type="Self.ListingCategory" Multiplicity="1" />
+    <End Role="ListingAndCategory" Type="Self.ListingAndCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListingCategory">
+        <PropertyRef Name="ListingCategoryId" />
+      </Principal>
+      <Dependent Role="ListingAndCategory">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TheDirectoryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Listings" EntityType="Self.Listing" />
+    <EntitySet Name="ListingAndCategories" EntityType="Self.ListingAndCategory" />
+    <EntitySet Name="ListingCategories" EntityType="Self.ListingCategory" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_ListingAndCategory_Listing" Association="Self.FK_ListingAndCategory_Listing">
+      <End Role="Listing" EntitySet="Listings" />
+      <End Role="ListingAndCategory" EntitySet="ListingAndCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListingAndCategory_ListingCategory" Association="Self.FK_ListingAndCategory_ListingCategory">
+      <End Role="ListingCategory" EntitySet="ListingCategories" />
+      <End Role="ListingAndCategory" EntitySet="ListingAndCategories" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

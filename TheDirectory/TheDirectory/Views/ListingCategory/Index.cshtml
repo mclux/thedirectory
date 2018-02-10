@@ -1,0 +1,96 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_PortalLayout.cshtml";
+}
+
+
+<div class="sb2-2">
+    <!--== breadcrumbs ==-->
+    <div class="sb2-2-2">
+        <ul>
+            <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Categories</a> </li>
+            <li class="active-bre"><a href="#"> Categories List</a> </li>
+        </ul>
+    </div>
+    <div class="tz-2 tz-2-admin">
+        <div class="tz-2-com tz-2-main">
+            <h4 id="lblLoader">Categories</h4>
+            <!-- Dropdown Structure -->
+            <div class="split-row">
+                <div class="col-md-12">
+                    <div class="box-inn-sp ad-inn-page">
+                        <div class="tab-inn ad-tab-inn">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>S/N</th>
+                                            <th>Category</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categoryTable">
+                                                                                
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section pageScripts{
+    <script>
+        loadCategories();
+
+        function loadCategories()
+        {
+            $("#lblLoader").html("loading categories...");
+            $.ajax({
+                url: API_BASE_URL + "/ListingCategory/GetCategories",
+                type: "Get",
+                contentType: "application/json",
+                success: function (data) {
+                    var output = "";
+                    for (i = 0; i < data.length; i++) {
+                        output += '<tr>\
+                                <td>'+ (i + 1) + '</td>\
+                                <td>' + data[i].CategoryName + '</td>\
+                                <td> <button class="btn btn-danger" onclick="deleteCategory(' + data[i].ListingCategoryId + ')"><i class="fa fa-times"></i></button> </td>\
+                            </tr>';
+                    }
+                    $("#categoryTable").html(output);
+                    $("#lblLoader").html("Categories");
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+
+        function deleteCategory(id)
+        {
+            $("#lblLoader").html("Deleting category...");
+            $.ajax({
+                url: API_BASE_URL + "/ListingCategory/DeleteCategory?id="+id,
+                type: "Get",
+                contentType: "application/json",
+                success: function (data) {
+                    if(data==true)
+                    {
+                        loadCategories();
+                    }
+                    else
+                    {
+                        alert("Could not delete category!");
+                    }
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+    </script>
+}

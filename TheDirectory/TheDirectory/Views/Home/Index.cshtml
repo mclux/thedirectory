@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!--BANNER AND SERACH BOX-->
+<section id="background" class="dir1-home-head">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="dir-ho-tl">
+                    <ul>
+                        <li>
+                            <a href="main.html"><img src="~/Content/theme/images/logo.png" alt=""> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="dir-ho-tr">
+                    <ul>
+                        <li><a href="/Home/Login"><i class="fa fa-plus" aria-hidden="true"></i> Sign In</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container dir-ho-t-sp">
+        <div class="row">
+            <div class="dir-hr1">
+                <div class="dir-ho-t-tit">
+                    <h1>Connect with the right Service Experts</h1>
+                    <p>Find B2B & B2C businesses contact addresses, phone numbers,<br> user ratings and reviews.</p>
+                </div>
+                <form class="tourz-search-form" onsubmit="return false;">
+                    <div class="input-field">
+                        <input type="text" id="select-city" class="autocomplete">
+                        <label for="select-city">Directory Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="select-search" class="autocomplete">
+                        <label for="select-search">Description</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="button" id="searchDirectory" value="search" class="waves-effect waves-light tourz-sear-btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--TOP SEARCH SECTION-->
+<section id="myID" class="bottomMenu hom-top-menu">
+    <div class="container top-search-main">
+        <div class="row">
+            <div class="ts-menu">
+                <!--SECTION: LOGO-->
+                <div class="ts-menu-1">
+                    <a href="main.html"><img src="~/Content/theme/images/aff-logo.png" alt=""> </a>
+                </div>
+                <!--SECTION: BROWSE CATEGORY(NOTE:IT'S HIDE ON MOBILE & TABLET VIEW)-->
+                <div class="ts-menu-2">
+                    <a href="#" class="t-bb">TheDirectory</a>
+                </div>
+                
+                <!--MOBILE MENU ICON:IT'S ONLY SHOW ON MOBILE & TABLET VIEW-->
+                <div class="ts-menu-5"><span><i class="fa fa-bars" aria-hidden="true"></i></span> </div>
+                <!--MOBILE MENU CONTAINER:IT'S ONLY SHOW ON MOBILE & TABLET VIEW-->
+                <div class="mob-right-nav" data-wow-duration="0.5s">
+                    <div class="mob-right-nav-close"><i class="fa fa-times" aria-hidden="true"></i> </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--HOME PROJECTS-->
+<section class="proj mar-bot-red-m30">
+    <div class="container">
+        
+    </div>
+</section>
+
+<!--BEST THINGS-->
+<section class="com-padd com-padd-redu-bot1">
+    <div class="container dir-hom-pre-tit">
+        <div class="row">
+            <div class="com-title">
+                <h2>Search Result</h2>
+                <p>Explore some of the best tips from around the world from our partners and friends.</p>
+            </div>
+            <div id="searchResultDiv">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+<!--FOOTER SECTION-->
+<footer id="colophon" class="site-footer clearfix">
+    <div id="quaternary" class="sidebar-container " role="complementary">
+        <div class="sidebar-inner">
+            <div class="widget-area clearfix">
+                <div id="azh_widget-2" class="widget widget_azh_widget">
+                    <div data-section="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3 foot-logo">
+                                    <img src="~/Content/theme/images/foot-logo.png" alt="logo">
+                                    <p class="hasimg">Worlds's No. 1 Local Business Directory Website.</p>                                    
+                                 </div>
+                                <div class="col-sm-4 col-md-3">
+                                    <h4>Support & Help</h4>
+                                    <ul class="two-columns">
+                                        <li> <a href="#">About Us</a> </li>
+                                        <li> <a href="#">How It Works</a> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- .widget-area -->
+        </div>
+        <!-- .sidebar-inner -->
+    </div>
+    <!-- #quaternary -->
+</footer>
+<!--COPY RIGHTS-->
+<section class="copy">
+    <div class="container">
+        <p>copyrights © 2017 TheDirectory. &nbsp;&nbsp;All rights reserved. </p>
+    </div>
+</section>
+
+@section pageScripts{
+    <script>
+        $("#searchDirectory").click(function () {
+            $("#searchDirectory").val("searching...");
+            var searchParam = {
+                DirectoryName: $("#select-city").val(),
+                Description: $("#select-search").val()
+            };
+            $.ajax({
+                url: API_BASE_URL + "/Listing/SearchDirectory",
+                type: "Post",
+                data: JSON.stringify(searchParam),
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    var searchResult = data;
+                    var htmlOutput = "";
+                    for (i = 0; i < searchResult.length; i++)
+                    {
+                        htmlOutput += '<div class="col-md-6">\
+                                        <div class="home-list-pop">\
+                                            <div class="col-md-3"> <img src="/Content/theme/images/invoice-logo.png" alt="" /> </div>\
+                                            <div class="col-md-9 home-list-pop-desc">\
+                                                <a href="automobile-listing-details.html"><h3>' + searchResult[i].BusinessName + '</h3></a>\
+                                                <h4>' + searchResult[i].Phone + ' | ' + searchResult[i].Email + '</h4>\
+                                                <p>' + searchResult[i].Address + '</p> <span class="home-list-pop-rat">4.2</span>\
+                                                <div class="hom-list-share">\
+                                                    <ul>\
+                                                        <li><a href="#!"><i class="fa fa-bar-chart" aria-hidden="true"></i> 3</a> </li>\
+                                                        <li><a href="#!"><i class="fa fa-heart-o" aria-hidden="true"></i> 3</a> </li>\
+                                                        <li><a href="#!"><i class="fa fa-eye" aria-hidden="true"></i> 3</a> </li>\
+                                                        <li><a href="#!"><i class="fa fa-share-alt" aria-hidden="true"></i> 3</a> </li>\
+                                                    </ul>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>';
+                    }                    
+
+                    $(searchResultDiv).html(htmlOutput);
+                    $("#searchDirectory").val("search");
+                },
+                error: function (err) {
+                    $("#searchDirectory").val("search");
+                }
+            });
+        });
+    </script>
+}

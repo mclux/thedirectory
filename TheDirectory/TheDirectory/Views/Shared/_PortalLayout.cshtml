@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheDirectory | Home</title>
+    <!-- META TAGS -->
+    <!-- FAV ICON(BROWSER TAB ICON) -->
+    <link rel="shortcut icon" href="~/Content/theme/images/fav.ico" type="image/x-icon">
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:500,700" rel="stylesheet">
+    <!-- FONTAWESOME ICONS -->
+    <link rel="stylesheet" href="~/Content/theme/css/font-awesome.min.css">
+    <!-- ALL CSS FILES -->
+    <link href="~/Content/theme/css/materialize.css" rel="stylesheet">
+    <link href="~/Content/theme/css/style.css" rel="stylesheet">
+    <link href="~/Content/theme/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <!-- RESPONSIVE.CSS ONLY FOR MOBILE AND TABLET VIEWS -->
+    <link href="~/Content/theme/css/responsive.css" rel="stylesheet">
+
+</head>
+<body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <!--== MAIN CONTRAINER ==-->
+    <div class="container-fluid sb1">
+        <div class="row">
+            <!--== LOGO ==-->
+            <div class="col-md-2 col-sm-3 col-xs-6 sb1-1">
+                <a href="#" class="btn-close-menu"><i class="fa fa-times" aria-hidden="true"></i></a> <a href="#" class="atab-menu"><i class="fa fa-bars tab-menu" aria-hidden="true"></i></a>
+                <a href="#" class="logo"><img src="/Content/theme/images/logo1.png" alt="" /> </a>
+            </div>
+        </div>
+    </div>
+    <!--== BODY CONTNAINER ==-->
+    <div class="container-fluid sb2">
+        <div class="row">
+            <div class="sb2-1">
+                <!--== USER INFO ==-->
+                <div class="sb2-12">
+                    <ul>
+                        <li><img src="/Content/theme/images/users/2.png" alt=""> </li>
+                        <li>
+                            <h5>TheDirectory <span> </span></h5>
+                        </li>
+                        <li></li>
+                    </ul>
+                </div>
+                <!--== LEFT MENU ==-->
+                <div class="sb2-13">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <a href="javascript:void(0)" class="collapsible-header"><i class="fa fa-list-ul" aria-hidden="true"></i> Listing</a>
+                            <div class="collapsible-body left-sub-menu">
+                                <ul>
+                                    <li><a href="/Listing/Index">All listing</a> </li>
+                                    <li><a href="/Listing/AddListing">Add New listing</a> </li>
+                                    <li><a href="/ListingCategory/Index">All listing Categories</a> </li>
+                                    <li><a href="/ListingCategory/AddCategory">Add listing Categories</a> </li>
+                                </ul>
+                            </div>
+                        </li>
+                                       
+                        @*<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> Log Out</a> </li>*@
+                    </ul>
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+    
+    <script src="~/Scripts/constants.js"></script>
+    <script src="~/Content/theme/js/jquery.min.js"></script>
+    <script src="~/Content/theme/js/bootstrap.js" type="text/javascript"></script>
+    <script src="~/Content/theme/js/materialize.min.js" type="text/javascript"></script>
+    <script src="~/Content/theme/js/custom.js"></script>
+
+    @RenderSection("pageScripts", required: false)
+    <script type="text/javascript">
+        //var userObj = {Username:"cazorla",Password:"cazorla",FirstName:"Santi",LastName:"Cazorla"};
+        //$.ajax({
+        //    url: API_BASE_URL + "/Security/CreateUser",
+        //    type: "Post",
+        //    data: JSON.stringify(userObj),
+        //    contentType: "application/json",
+        //    success: function (data) {
+                
+        //    },
+        //    error: function (err) {
+        //    }
+        //});
+    </script>
+</body>
+</html>

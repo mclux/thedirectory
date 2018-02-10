@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/Views/Shared/_PortalLayout.cshtml";
+}
+@{
+    ViewBag.Title = "Add Listing";
+}
+
+<!--== BODY INNER CONTAINER ==-->
+<div class="sb2-2">
+    <!--== breadcrumbs ==-->
+    <div class="sb2-2-2">
+        <ul>
+            <li><a href="main.html"><i class="fa fa-home" aria-hidden="true"></i> Home</a> </li>
+            <li class="active-bre"><a href="#"> Add Category</a> </li>
+        </ul>
+    </div>
+    <div class="tz-2 tz-2-admin">
+        <div class="tz-2-com tz-2-main">
+            <h4>Add New Category</h4>
+            <!-- Dropdown Structure -->
+            <div class="split-row">
+                <div class="col-md-12">
+                    <div class="box-inn-sp ad-inn-page">
+                        <div class="tab-inn ad-tab-inn">
+                            <div class="hom-cre-acc-left hom-cre-acc-right">
+                                <div class="">
+                                    <form class="" onsubmit="return false;">
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="categoryName" type="text" class="validate">
+                                                <label for="list_name">Category Name</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12 v2-mar-top-40"> <button id="saveCategory" class="waves-effect waves-light btn-large full-btn">Save</button> </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section pageScripts{
+    <script>
+        $("#saveCategory").click(function () {
+            $("#saveCategory").html("please wait...");
+            var param = {
+                CategoryName: $("#categoryName").val()
+            };
+            $.ajax({
+                url: API_BASE_URL + "/ListingCategory/AddCategory",
+                type: "Post",
+                data: JSON.stringify(param),
+                contentType: "application/json",
+                success: function (data) {
+                    if (data == true)
+                    {
+                        $("#categoryName").val("");
+                        $("#saveCategory").html("Save");
+                    }
+                },
+                error: function (err) {
+
+                }
+            });
+        });
+    </script>
+}
+

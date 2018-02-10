@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TheDirectoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Listing">
+    <Key>
+      <PropertyRef Name="ListingId" />
+    </Key>
+    <Property Name="ListingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BusinessName" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="5000" Nullable="false" />
+    <Property Name="Website" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ListingAndCategory">
+    <Key>
+      <PropertyRef Name="ListingAndCategoryId" />
+    </Key>
+    <Property Name="ListingAndCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ListingCategory">
+    <Key>
+      <PropertyRef Name="ListingCategoryId" />
+    </Key>
+    <Property Name="ListingCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="5000" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ListingAndCategory_Listing">
+    <End Role="Listing" Type="Self.Listing" Multiplicity="1" />
+    <End Role="ListingAndCategory" Type="Self.ListingAndCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="ListingId" />
+      </Principal>
+      <Dependent Role="ListingAndCategory">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListingAndCategory_ListingCategory">
+    <End Role="ListingCategory" Type="Self.ListingCategory" Multiplicity="1" />
+    <End Role="ListingAndCategory" Type="Self.ListingAndCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListingCategory">
+        <PropertyRef Name="ListingCategoryId" />
+      </Principal>
+      <Dependent Role="ListingAndCategory">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TheDirectoryModelStoreContainer">
+    <EntitySet Name="Listing" EntityType="Self.Listing" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingAndCategory" EntityType="Self.ListingAndCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingCategory" EntityType="Self.ListingCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ListingAndCategory_Listing" Association="Self.FK_ListingAndCategory_Listing">
+      <End Role="Listing" EntitySet="Listing" />
+      <End Role="ListingAndCategory" EntitySet="ListingAndCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListingAndCategory_ListingCategory" Association="Self.FK_ListingAndCategory_ListingCategory">
+      <End Role="ListingCategory" EntitySet="ListingCategory" />
+      <End Role="ListingAndCategory" EntitySet="ListingAndCategory" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

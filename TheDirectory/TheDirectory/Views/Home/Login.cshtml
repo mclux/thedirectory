@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<section class="tz-register">
+    <div class="log-in-pop">
+        <div class="log-in-pop-left">
+            <h1>TheDirectory</h1>
+        </div>
+        <div class="log-in-pop-right">
+            <h4>Login</h4>
+            <form class="s12">
+                <div>
+                    <div class="input-field s12">
+                        <input type="text"id="username" class="validate">
+                        <label>User name</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="input-field s12">
+                        <input type="password" id="password" class="validate">
+                        <label>Password</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="input-field s4">
+                        <input type="button" value="Login" id="login" class="waves-effect waves-light log-in-btn">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section pageScripts{
+    <script>
+        $("#login").click(function () {
+            $("#login").val("please wait...");
+            var param = {
+                Username: $("#username").val(),
+                Password: $("#password").val()
+            };
+            $.ajax({
+                url: API_BASE_URL + "/Security/Login",
+                type: "Post",
+                data: JSON.stringify(param),
+                contentType: "application/json",
+                success: function (data) {
+                    if (data == true)
+                    {
+                        window.location = "/Listing/Index";
+                    }
+                    else
+                    {
+                        alert("Invalid login credentials");
+                    }
+                },
+                error: function (err) {
+                    $("#login").val("Login");
+                }
+            });
+        });
+    </script>
+}
+
+
